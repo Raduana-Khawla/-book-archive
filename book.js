@@ -25,17 +25,17 @@
       showTotalResult.innerText='No result found';
      }
   else{
-      showTotalResult.innerText=`${details.numFound} result found`;
+      showTotalResult.innerText=`${details.numFound}result found`;
       } 
   const bookInformation = document.getElementById('get-books');
   bookInformation.innerHTML='';
   let total = details.docs;
-  total.forEach(detail => {
+  total?.forEach(detail => {
   const showBookDetails = document.createElement('div');
   showBookDetails.classList.add("col-md-4");
   showBookDetails.innerHTML=`
-     <div class="shadow rounded p-3 m-2">
-     <img src="https://covers.openlibrary.org/b/id/${detail.cover_i}-M.jpg" class="card-img-top img-fluid" alt="...">
+     <div class="shadow rounded h-100 p-3 m-2">
+     <img src="https://covers.openlibrary.org/b/id/${detail.cover_i? detail.cover_i:'' }-M.jpg" class="card-img-top img-fluid" alt="...">
      <br>
      <h5>${detail.title}</h5>
      <p>${detail.author_name}</p>
@@ -45,7 +45,5 @@
     `;
     bookInformation.appendChild(showBookDetails);
 });
-}
-
-
+};
   
