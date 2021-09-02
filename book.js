@@ -10,26 +10,27 @@
       errorDiv.innerText="search field cannot be empty";
   }
   else{
+    errorDiv.innerText='';
       const url=`https://openlibrary.org/search.json?q=${searchText}`;
       fetch(url)
      .then(res => res.json())
-     .then(data => bookDetails(data.docs))
+     .then(data => bookDetails(data))
   }
 }
   //show books
   const bookDetails = (details) =>{
-  // console.log(details);
   const showTotalResult = document.getElementById('total-result');
-  if(details.start === -1)
+  if(details.numFound === 0)
      {
       showTotalResult.innerText='No result found';
      }
   else{
-      showTotalResult.innerText=`${details.length} result found`;
+      showTotalResult.innerText=`${details.numFound} result found`;
       } 
   const bookInformation = document.getElementById('get-books');
   bookInformation.innerHTML='';
-  details.forEach(detail => {
+  let total = details.docs;
+  total.forEach(detail => {
   const showBookDetails = document.createElement('div');
   showBookDetails.classList.add("col-md-4");
   showBookDetails.innerHTML=`
